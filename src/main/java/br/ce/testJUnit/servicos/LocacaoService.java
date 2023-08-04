@@ -1,12 +1,12 @@
-package br.ce.wcaquino.servicos;
+package br.ce.testJUnit.servicos;
 
-import static br.ce.wcaquino.utils.DataUtils.adicionarDias;
+import static br.ce.testJUnit.utils.DataUtils.adicionarDias;
 
 import java.util.Date;
 
-import br.ce.wcaquino.entidades.Filme;
-import br.ce.wcaquino.entidades.Locacao;
-import br.ce.wcaquino.entidades.Usuario;
+import br.ce.testJUnit.entidades.Filme;
+import br.ce.testJUnit.entidades.Locacao;
+import br.ce.testJUnit.entidades.Usuario;
 
 public class LocacaoService {
 	
@@ -28,7 +28,5 @@ public class LocacaoService {
 		return locacao;
 	}
 
-	public static void main(String[] args) {
-		
-	}
+
 }
