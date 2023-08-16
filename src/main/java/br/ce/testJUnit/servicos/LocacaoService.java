@@ -3,6 +3,7 @@ package br.ce.testJUnit.servicos;
 import static br.ce.testJUnit.utils.DataUtils.adicionarDias;
 
 import java.util.Date;
+import java.util.List;
 
 import br.ce.testJUnit.entidades.Filme;
 import br.ce.testJUnit.entidades.Locacao;
@@ -12,22 +13,39 @@ import br.ce.testJUnit.exceptions.LocadoraException;
 
 public class LocacaoService {
 	
-	public Locacao alugarFilme(Usuario usuario, Filme filme) throws FilmeSemEstoqueException, LocadoraException {
+	public Locacao alugarFilme(Usuario usuario, List<Filme> filmeList) throws FilmeSemEstoqueException, LocadoraException {
 
 		if (usuario == null){
 			throw new LocadoraException("Usuário vazio");
 		}
-		if (filme == null){
+		if (filmeList.isEmpty()){
 			throw new LocadoraException("Filme vazio");
 		}
-		if (filme.getEstoque() == 0 ){
-			throw new FilmeSemEstoqueException("Filme sem estoque");
+		for (Filme filme: filmeList){
+			if (filme.getEstoque() == 0 ){
+				throw new FilmeSemEstoqueException("Filme sem estoque");
+			}
 		}
+
 		Locacao locacao = new Locacao();
-		locacao.setFilme(filme);
+		locacao.setFilmeList(filmeList);
 		locacao.setUsuario(usuario);
 		locacao.setDataLocacao(new Date());
-		locacao.setValor(filme.getPrecoLocacao());
+		Double valorTotal = 0.0;
+
+		for (int i = 0; i < filmeList.size(); i++) {
+
+			Filme filme = filmeList.get(i);
+
+			switch (i){
+				case 2: valorTotal += filme.getPrecoLocacao() * 0.75; break;
+				case 3: valorTotal += filme.getPrecoLocacao() * 0.5; break;
+				case 4: valorTotal += filme.getPrecoLocacao() * 0.25; break;
+				case 5: valorTotal += filme.getPrecoLocacao() * 0.0; break;
+				default: valorTotal += filme.getPrecoLocacao(); break;
+			}
+		}
+		locacao.setValor(valorTotal);
 
 		//Entrega no dia seguinte
 		Date dataEntrega = new Date();

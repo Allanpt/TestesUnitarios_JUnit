@@ -1,11 +1,12 @@
 package br.ce.testJUnit.entidades;
 
 import java.util.Date;
+import java.util.List;
 
 public class Locacao {
 
 	private Usuario usuario;
-	private Filme filme;
+	private List<Filme> filmeList;
 	private Date dataLocacao;
 	private Date dataRetorno;
 	private Double valor;
@@ -34,10 +35,12 @@ public class Locacao {
 	public void setValor(Double valor) {
 		this.valor = valor;
 	}
-	public Filme getFilme() {
-		return filme;
+
+	public List<Filme> getFilmeList() {
+		return filmeList;
 	}
-	public void setFilme(Filme filme) {
-		this.filme = filme;
+
+	public void setFilmeList(List<Filme> filmeList) {
+		this.filmeList = filmeList;
 	}
 }
